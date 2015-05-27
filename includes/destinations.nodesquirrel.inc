@@ -647,7 +647,7 @@ class backup_migrate_destination_nodesquirrel extends backup_migrate_destination
   }
 
   function add_scheme($url) {
-    return 'http://' . $url;
+    return 'https://' . $url;
   }
 
   /**
