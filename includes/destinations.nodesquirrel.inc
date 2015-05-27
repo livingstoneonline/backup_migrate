@@ -429,9 +429,7 @@ class backup_migrate_destination_nodesquirrel extends backup_migrate_destination
 
           if ($confirm['success']) {
             // Set a message with a link to the manage console.
-            $url = variable_get('nodesquirrel_manage_url', 'https://manage.nodesquirrel.com') . '/backups/' . $this->_get_destination();
-            _backup_migrate_message('Your backup has been saved to your NodeSquirrel account. View it at !account', array('!account' => l($url, $url)));
-
+            _backup_migrate_message('Your backup has been saved to your NodeSquirrel account. View it at !account', array('!account' => backup_migrate_nodesquirrel_get_manage_link($this)));
             return $file;
           }
           else {
