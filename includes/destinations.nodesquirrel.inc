@@ -166,21 +166,19 @@ function backup_migrate_nodesquirrel_status_form($key, $destination, $status) {
         '#markup' => check_plain($status['plan_name'])
       );
 
-      if (isset($status['plan_id']) && strpos($status['plan_id'], 'trial') !== FALSE) {
-        if (isset($status['lifetime_backups']) && isset($status['lifetime_backups_used'])) {
-          $remains = $status['lifetime_backups'] - $status['lifetime_backups_used'];
-          $remains = $remains > 0 ? $remains : t('none');
-          $form['nodesquirrel_status']['plan_name']['#markup'] .= ' ' . t('(@remains remaining of @backups backup trial)', array('@backups' => $status['lifetime_backups'], '@remains' => $remains));
-        }
+      if (!empty($status['lifetime_backups']) && isset($status['lifetime_backups_used'])) {
+        $remains = $status['lifetime_backups'] - $status['lifetime_backups_used'];
+        $remains = $remains > 0 ? $remains : t('none');
+        $form['nodesquirrel_status']['plan_name']['#markup'] .= ' ' . t('(@remains remaining of @backups backup trial)', array('@backups' => $status['lifetime_backups'], '@remains' => $remains));
+      }
 
-        if (isset($status['lifespan']) && isset($status['age']) && $status['lifespan'] > 0) {
-          $remains = ceil(($status['lifespan'] - $status['age']) / 86400);
-          if ($remains <= 0) {
-            $form['nodesquirrel_status']['plan_name']['#markup'] .= ' ' . t('(Your !span day trial has expired.)', array('!span' => ceil($status['lifespan'] / 86400)));
-          }
-          else {
-            $form['nodesquirrel_status']['plan_name']['#markup'] .= ' ' . format_plural($remains, '(1 day remaining)', '(!span days remaining)', array('!span' => ceil($remains)));
-          }
+      if (!empty($status['lifespan']) && isset($status['age']) && $status['lifespan'] > 0) {
+        $remains = ceil(($status['lifespan'] - $status['age']) / 86400);
+        if ($remains <= 0) {
+          $form['nodesquirrel_status']['plan_name']['#markup'] .= ' ' . t('(Your !span day trial has expired.)', array('!span' => ceil($status['lifespan'] / 86400)));
+        }
+        else {
+          $form['nodesquirrel_status']['plan_name']['#markup'] .= ' ' . format_plural($remains, '(1 day remaining)', '(!span days remaining)', array('!span' => ceil($remains)));
         }
       }
 
