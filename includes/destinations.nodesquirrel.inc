@@ -50,7 +50,7 @@ function backup_migrate_nodesquirrel_get_activate_help_text() {
  * Get a helper link to activate a site and create a tree.
  */
 function backup_migrate_nodesquirrel_get_activate_link() {
-  $activate_link = l('nodesquirrel.com/activate', variable_get('nodesquirrel_activate_url', 'http://manage.nodesquirrel.com/activate'), array('query' => array('url' => url('', array('absolute' => TRUE)), 'email' => variable_get('site_mail', ''), 'configure' => url($_GET['q'], array('absolute' => TRUE)))));
+  $activate_link = l('nodesquirrel.com/activate', variable_get('nodesquirrel_activate_url', 'https://manage.nodesquirrel.com/activate'), array('query' => array('url' => url('', array('absolute' => TRUE)), 'email' => variable_get('site_mail', ''), 'configure' => url($_GET['q'], array('absolute' => TRUE)))));
   return $activate_link;
 }
 
@@ -429,7 +429,7 @@ class backup_migrate_destination_nodesquirrel extends backup_migrate_destination
 
           if ($confirm['success']) {
             // Set a message with a link to the manage console.
-            $url = variable_get('nodesquirrel_manage_url', 'http://manage.nodesquirrel.com') . '/backups/' . $this->_get_destination();
+            $url = variable_get('nodesquirrel_manage_url', 'https://manage.nodesquirrel.com') . '/backups/' . $this->_get_destination();
             _backup_migrate_message('Your backup has been saved to your NodeSquirrel account. View it at !account', array('!account' => l($url, $url)));
 
             return $file;
