@@ -45,7 +45,7 @@ function backup_migrate_backup_migrate_locations() {
  *    'all' - all available locations should be returned
  */
 function backup_migrate_get_locations($op = 'all') {
-  static $locations = NULL;
+  $locations = &drupal_static('backup_migrate_get_locations', NULL);
 
   // Get the list of locations and cache them locally.
   if ($locations === NULL) {

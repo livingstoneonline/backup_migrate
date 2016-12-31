@@ -134,7 +134,7 @@ function backup_migrate_backup_migrate_destinations() {
  *    'all' - all available destinations should be returned
  */
 function backup_migrate_get_destinations($op = 'all') {
-  static $destinations = NULL;
+  $destinations = &drupal_static('backup_migrate_get_destinations', NULL);
 
   // Get the list of destinations and cache them locally.
   if ($destinations === NULL) {
