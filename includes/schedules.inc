@@ -474,7 +474,7 @@ class backup_migrate_schedule extends backup_migrate_item {
       "#default_value" => $cron ? $cron : BACKUP_MIGRATE_CRON_BUILTIN,
       '#parents' => array('cron'),
     );
-    if (!module_exists('elysia_cron')) {
+    if (!module_exists('elysia_cron') && !module_exists('ultimate_cron')) {
       $form['cron_settings']['cron_elysia']['#disabled'] = TRUE;
       $form['cron_settings']['cron_elysia']['#description'] .= ' ' . t('Install !elysia to enable this option.', array('!elysia' => l(t('Elysia Cron'), 'http://drupal.org/project/elysia_cron')));
     }
