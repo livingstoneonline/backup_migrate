@@ -67,7 +67,7 @@ function backup_migrate_schedules_run() {
  */
 function backup_migrate_schedule_run($schedule_id) {
   backup_migrate_include('profiles');
-  if ($schedule = backup_migrate_get_schedule($schedule_id)) {
+  if (($schedule = backup_migrate_get_schedule($schedule_id)) && $schedule->is_enabled()) {
     $schedule->run();
   }
   backup_migrate_cleanup();
