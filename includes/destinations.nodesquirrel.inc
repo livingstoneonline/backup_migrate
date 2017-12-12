@@ -798,6 +798,9 @@ class backup_migrate_destination_nodesquirrel extends backup_migrate_destination
       return $result;
     }
   
+    // Avoid some "undefined variable" errors.
+    $errno = $errstr = NULL;
+
     switch ($uri['scheme']) {
       case 'http':
       case 'feed':
@@ -816,7 +819,7 @@ class backup_migrate_destination_nodesquirrel extends backup_migrate_destination
         $result->code = -1003;
         return $result;
     }
-  
+
     // Make sure the socket opened properly.
     if (!$fp) {
       // When a network error occurs, we use a negative number so it does not
