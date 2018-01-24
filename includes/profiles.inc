@@ -121,14 +121,19 @@ function _backup_migrate_ui_backup_settings_form($profile) {
   }
 
   $form['file']['append_timestamp'] = array(
-    "#type" => "checkbox",
-    "#title" => t("Append a timestamp."),
+    "#type" => "radios",
+    '#options' => array(
+      0 => t('Create seperate backups even if `Backup file name` is the same.'),
+      1 => t('Overwrite backup.'),
+      2 => t('Append timestamp.'),
+    ),
+    "#title" => t("Save modes."),
     "#default_value" => $profile->append_timestamp,
   );
   $form['file']['timestamp_format_wrapper'] = array(
     '#type' => 'backup_migrate_dependent',
     '#dependencies' => array(
-      'append_timestamp' => TRUE,
+      'append_timestamp' => 2,
     ),
   );
   $form['file']['timestamp_format_wrapper']['timestamp_format'] = array(
@@ -380,4 +385,3 @@ class backup_migrate_profile extends backup_migrate_item {
     return t('Are you sure you want to delete the profile %name? Any schedules using this profile will be disabled.', array('%name' => $this->get('name')));
   }
 }
-
