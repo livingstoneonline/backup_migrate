@@ -320,15 +320,8 @@ class backup_migrate_destination_nodesquirrel extends backup_migrate_destination
   var $cache_files = TRUE;
   // Don't generate a metadata file as NodeSquirrel can save metadata natively.
   var $save_metadata = FALSE;
-
-  /**
-   * Get the destination name. Provide a default.
-   */
-  function get_name() {
-    if (empty($this->name)) {
-      return t('NodeSquirrel');
-    }
-    return $this->name;
+  function __construct($params = array()) {
+    parent::__construct($params + array('name' => t('NodeSquirrel')));
   }
 
   /**
