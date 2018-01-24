@@ -1867,5 +1867,20 @@ function backup_migrate_format_size($size, $langcode = LANGUAGE_NONE) {
     }
     return t($string, array('@size' => round($size/$multiply, $precision)), array('langcode' => $langcode));
   }
+}
 
+/**
+ * Implements hook_mail().
+ */
+function backup_migrate_mail($key, &$message, $params) {
+  if ($key == 'backup_succeed') {
+    $message['id'] = 'backup_migrate_backup_succeed';
+    $message['subject'] = t('!site backup succeeded', array('!site' => variable_get('site_name', 'Drupal site')));
+    $message['body'][] = $params['body'];
+  }
+  elseif ($key == 'backup_fail') {
+    $message['id'] = 'backup_migrate_backup_fail';
+    $message['subject'] = t('!site backup failed', array('!site' => variable_get('site_name', 'Drupal site')));
+    $message['body'][] = $params['body'];
+  }
 }
