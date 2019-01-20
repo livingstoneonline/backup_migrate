@@ -134,7 +134,7 @@ function drupal_ftp_connect(&$ftp) {
 
   if (!$ftp->__conn && !drupal_ftp_connected($ftp)) {
     // Attempt to connect to the remote server
-    $ftp->__conn = @ftp_connect($ftp->__server, $ftp->__port);
+    $ftp->__conn = @ftp_ssl_connect($ftp->__server, $ftp->__port);
 
     if (!$ftp->__conn) {
       _backup_migrate_message('FTP Error: Couldn\'t connect to server @server', array('@server' => $ftp->__server), 'error');
